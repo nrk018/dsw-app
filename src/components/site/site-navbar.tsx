@@ -37,7 +37,7 @@ export function SiteNavbar() {
       } ${
         isClubsOrEvents 
           ? "bottom-4 md:top-3 md:bottom-auto" 
-          : "top-3 md:top-4"
+          : "top-1 md:top-4"
       }`}
     >
       <NavBody
@@ -82,7 +82,7 @@ export function SiteNavbar() {
         </div>
       </NavBody>
 
-      <MobileNav className="mx-auto w-full max-w-[calc(100%-2rem)] rounded-full px-2.5 py-1.5 border-white/60 bg-white/70 shadow-[0_10px_28px_rgba(44,50,86,0.08)] backdrop-blur-2xl">
+      <MobileNav className="mx-auto w-full max-w-[calc(100%-2rem)] rounded-full px-2.5 py-1.5 border-white/40 bg-white/95 shadow-[0_2px_8px_rgba(0,0,0,0.05)] backdrop-blur-sm mt-1">
         <div className="flex w-full items-center justify-between">
           {/* Left: Logo + DSW */}
           <Link href="/" className="flex items-center gap-1 text-slate-900">
