@@ -7,7 +7,7 @@ export default function EventsPage() {
   const [animationComplete, setAnimationComplete] = useState(false);
 
   return (
-    <div className="relative min-h-screen overflow-hidden text-slate-900" style={{ backgroundColor: "#e9e5de" }}>
+    <div className="relative min-h-screen overflow-x-hidden text-slate-900" style={{ backgroundColor: "#e9e5de" }}>
       <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_20%_15%,rgba(255,255,255,0.68),rgba(255,255,255,0))]" />
       <div className="relative z-10 w-full px-4 pb-20 pt-20 md:pt-24 md:px-6 lg:px-12">
         <header className="mb-8 text-center">

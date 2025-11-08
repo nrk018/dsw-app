@@ -8,7 +8,7 @@ import {
   useMotionValueEvent,
 } from "motion/react";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 
 interface NavbarProps {
@@ -51,25 +51,56 @@ interface MobileNavMenuProps {
 
 export const Navbar = ({ children, className }: NavbarProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollY } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
   const [visible, setVisible] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const prevScrollY = useRef(0);
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
+    // Set visible state for styling effects
     if (latest > 100) {
       setVisible(true);
     } else {
       setVisible(false);
     }
+
+    // Disable scroll-based hiding on mobile
+    if (isMobile) {
+      setHidden(false);
+      prevScrollY.current = latest;
+      return;
+    }
+    
+    if (latest > prevScrollY.current && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+    
+    prevScrollY.current = latest;
   });
 
   return (
-    <motion.div
+    <motion.nav
       ref={ref}
-      // Set as fixed, top-0 so it sits flush at the top without extra space
-      className={cn("fixed inset-x-0 top-0 z-40 w-full", className)}
+      className={cn("fixed inset-x-0 z-50 w-full transition-all duration-300", className)}
+      variants={{
+        visible: { y: 0 },
+        hidden: { y: "-100%" },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.2, ease: "easeInOut" }}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
@@ -79,7 +110,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
             )
           : child,
       )}
-    </motion.div>
+    </motion.nav>
   );
 };
 
