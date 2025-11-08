@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Rubik_80s_Fade } from "next/font/google";
 import "./globals.css";
 import { SiteNavbar } from "@/components/site/site-navbar";
 import { PageShell } from "@/components/site/page-shell";
@@ -15,6 +16,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const rubik80sFade = Rubik_80s_Fade({
+  weight: "400",
+  variable: "--font-rubik-80s-fade",
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
   title: "Directorate of Students' Welfare | Manipal University Jaipur",
   description:
@@ -25,8 +32,8 @@ export const metadata: Metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -37,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${rubik80sFade.variable} antialiased`}
       >
         <AnimationProvider>
           <SiteNavbar />

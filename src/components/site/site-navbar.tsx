@@ -36,7 +36,7 @@ export function SiteNavbar() {
         isHome && !heroAnimationComplete ? "opacity-0 pointer-events-none" : "opacity-100"
       } ${
         isClubsOrEvents 
-          ? "bottom-3 md:top-3 md:bottom-auto" 
+          ? "bottom-4 md:top-3 md:bottom-auto" 
           : "top-3 md:top-4"
       }`}
     >

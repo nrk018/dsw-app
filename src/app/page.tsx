@@ -424,11 +424,13 @@ export default function Home() {
             <span className="text-xs uppercase tracking-[0.34em] text-white/90">Platinum Clubs</span>
           </div>
           <div className="flex items-center justify-between w-full gap-1 md:gap-0 flex-wrap md:flex-nowrap">
-            {/* Circular translucent cards for clubs */}
+            {/* Circular translucent cards for clubs - 5 on mobile, 8 on desktop */}
             {[1, 2, 3, 4, 5, 6, 7, 8].map((club) => (
               <div
                 key={club}
-                className="flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg flex-shrink-0"
+                className={`flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/30 shadow-lg flex-shrink-0 ${
+                  club > 5 ? 'hidden md:flex' : ''
+                }`}
               >
                 <span className="text-[0.6rem] md:text-[0.65rem] font-semibold text-white text-center px-1">Club {club}</span>
               </div>
@@ -462,7 +464,7 @@ export default function Home() {
             animate={overviewInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
-          <Card className="w-full border-white/60 bg-white/70 pt-6 md:pt-10 px-4 md:px-10 pb-0 shadow-[0_18px_40px_rgba(46,54,92,0.12)] backdrop-blur-2xl relative" style={{ marginTop: 0, marginBottom: 0 }}>
+          <Card className="w-full border-white/60 bg-white/70 pt-6 md:pt-10 px-2 md:px-10 pb-0 shadow-[0_18px_40px_rgba(46,54,92,0.12)] backdrop-blur-2xl relative" style={{ marginTop: 0, marginBottom: 0 }}>
             <CardHeader className="space-y-3 md:space-y-4 pb-4 md:pb-6 text-center">
               <span className="text-xs uppercase tracking-[0.34em] text-slate-500">Overview</span>
               <CardTitle className="text-2xl md:text-5xl lg:text-6xl font-black tracking-tight text-slate-900">
@@ -470,7 +472,7 @@ export default function Home() {
               </CardTitle>
             </CardHeader>
             <CardContent className="pb-6 md:pb-10">
-              <div className="grid gap-4 lg:grid-cols-2 lg:items-center px-4 md:px-6 lg:px-12">
+              <div className="grid gap-4 lg:grid-cols-2 lg:items-center px-2 md:px-6 lg:px-12">
                 <div className="space-y-4 md:space-y-5">
                   <p className="text-sm md:text-xl leading-relaxed md:leading-relaxed text-slate-700 text-justify font-medium md:font-semibold">
                     Directorate of Students' Welfare (DSW) focuses on addressing both the administrative needs and personal development of students through a variety of domains, including Student Clubs & Chapters, Social Connect, Annual Fests, Scholarships, Student Counselling, and student code of conduct. The department is committed to creating a holistic environment that supports academic excellence, personal growth, and social responsibility among the student body.
@@ -511,10 +513,10 @@ export default function Home() {
           zIndex: 2,
         }}
       >
-          <div className="w-full px-6 lg:px-12 h-full">
-            <div className="grid grid-cols-1 md:grid-cols-[200px_80px_auto_1fr] gap-4 md:gap-6 h-full items-center">
-              {/* Left: Heading */}
-              <div className="flex items-center justify-start w-full md:w-[200px]">
+          <div className="w-full px-2 md:px-6 lg:px-12 h-full">
+            <div className="grid grid-cols-1 md:grid-cols-[200px_80px_auto_1fr] gap-2 md:gap-6 h-full items-center">
+              {/* Mobile: Centered Heading | Desktop: Left Heading */}
+              <div className="flex items-center justify-center md:justify-start w-full md:w-[200px] h-full">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={carouselIndex}
@@ -522,7 +524,7 @@ export default function Home() {
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="text-xl md:text-2xl lg:text-3xl font-black tracking-tight text-white whitespace-nowrap"
+                    className="text-3xl md:text-2xl lg:text-3xl font-black tracking-tight text-white whitespace-nowrap"
                   >
                     {carouselIndex === 0 ? "Vision" : carouselIndex === 1 ? "Mission" : "Values"}
                   </motion.span>
@@ -537,8 +539,8 @@ export default function Home() {
                 <div className="h-[85%] w-px bg-white/70"></div>
               </div>
               
-              {/* Right: Carousel Content */}
-              <div className="relative h-full flex items-center justify-start">
+              {/* Mobile: Centered Content | Desktop: Left Content */}
+              <div className="relative h-full flex items-center justify-center md:justify-start min-h-[120px]">
                 <AnimatePresence mode="wait">
                   {/* Vision Card */}
                   {carouselIndex === 0 && (
@@ -548,9 +550,9 @@ export default function Home() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5 }}
-                      className="px-2 py-3 w-full h-full flex items-center justify-start"
+                      className="px-2 py-3 w-full h-full flex items-center justify-center md:justify-start absolute inset-0"
                     >
-                      <p className="text-xs md:text-sm lg:text-base font-bold italic leading-tight text-white text-left px-2">
+                      <p className="text-xs md:text-sm lg:text-base font-bold italic leading-tight text-white text-center md:text-left px-2">
                         Embellish students with integrity and a humane touch, nurturing their talents to make them socially responsible global citizens.
                       </p>
                     </motion.div>
@@ -564,9 +566,9 @@ export default function Home() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5 }}
-                      className="px-2 py-3 w-full h-full flex items-center justify-start"
+                      className="px-2 py-3 w-full h-full flex items-center justify-center md:justify-start absolute inset-0"
                     >
-                      <div className="text-xs md:text-sm lg:text-base font-bold leading-tight text-white text-left relative w-full h-full flex items-center justify-start px-2">
+                      <div className="text-xs md:text-sm lg:text-base font-bold leading-tight text-white text-center md:text-left relative w-full h-full flex items-center justify-center md:justify-start px-2">
                       <AnimatePresence mode="wait">
                         {missionStatements.map((statement, idx) => 
                           missionIndex === idx && (
@@ -576,7 +578,7 @@ export default function Home() {
                               animate={{ opacity: 1 }}
                               exit={{ opacity: 0 }}
                               transition={{ duration: 0.5 }}
-                              className="text-xs md:text-sm lg:text-base font-bold italic leading-tight text-white text-left"
+                              className="text-xs md:text-sm lg:text-base font-bold italic leading-tight text-white text-center md:text-left"
                             >
                               {statement}
                             </motion.p>
@@ -595,9 +597,9 @@ export default function Home() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.5 }}
-                      className="px-2 py-3 w-full h-full flex items-center justify-start"
+                      className="px-2 py-3 w-full h-full flex items-center justify-center md:justify-start absolute inset-0"
                     >
-                      <div className="text-xs md:text-sm lg:text-base font-bold italic leading-tight text-white text-left px-2">
+                      <div className="text-xs md:text-sm lg:text-base font-bold italic leading-tight text-white text-center md:text-left px-2">
                         Our guiding principles shaping student welfare are <FlipWords words={values} duration={2000} className="text-white font-bold" />
                       </div>
                     </motion.div>
@@ -621,12 +623,12 @@ export default function Home() {
           backgroundColor: "#e9e5de",
         }}
       >
-        <div className="relative z-10 flex w-full flex-col px-6 pb-0 pt-0 lg:px-12">
+        <div className="relative z-10 flex w-full flex-col px-2 md:px-6 pb-0 pt-0 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-            className="rounded-3xl border border-white/60 bg-white/70 p-10 shadow-[0_16px_38px_rgba(52,60,98,0.12)] backdrop-blur-2xl"
+            className="rounded-3xl border-0 md:border border-transparent md:border-white/60 bg-transparent md:bg-white/70 p-4 md:p-10 shadow-none md:shadow-[0_16px_38px_rgba(52,60,98,0.12)] backdrop-blur-0 md:backdrop-blur-2xl"
           >
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 text-center mb-3">
               Team - Directorate of Students' Welfare
@@ -635,11 +637,11 @@ export default function Home() {
               Dedicated professionals supporting student welfare, development, and wellbeing across campus initiatives.
             </p>
             
-            <div className="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-10">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-6 mt-6 md:mt-10">
               {teamMembers.map((member, idx) => (
                 <div
                   key={member.name}
-                  className="relative group block p-2"
+                  className="relative group block p-1 md:p-2"
                   onMouseEnter={() => setHoveredIndex(idx)}
                   onMouseLeave={() => setHoveredIndex(null)}
                   style={{ isolation: 'isolate' }}
@@ -647,7 +649,7 @@ export default function Home() {
                   <AnimatePresence>
                     {hoveredIndex === idx && (
                       <motion.span
-                        className="absolute inset-0 h-full w-full block rounded-3xl pointer-events-none"
+                        className="absolute inset-0 h-full w-full block rounded-2xl md:rounded-3xl pointer-events-none"
                         style={{ 
                           backgroundColor: '#d3622d',
                           willChange: 'transform, opacity'
@@ -675,28 +677,28 @@ export default function Home() {
                     )}
                   </AnimatePresence>
                   <Card
-                    className="flex flex-row items-center justify-between gap-4 md:gap-6 border-0 bg-white/30 backdrop-blur-xl p-4 md:p-8 shadow-[0_8px_24px_rgba(0,0,0,0.15)] relative z-10"
+                    className="flex flex-row items-center justify-between gap-2 md:gap-6 border-0 bg-white/30 backdrop-blur-xl p-2.5 md:p-8 shadow-[0_8px_24px_rgba(0,0,0,0.15)] relative z-10 h-full min-h-[80px] md:min-h-[140px]"
                   >
-                    <div className="space-y-1 md:space-y-2 relative z-20 flex-1 min-w-0">
-                      <CardTitle className={`text-base md:text-xl font-semibold text-slate-900 transition-all duration-300 ${
-                        hoveredIndex === idx ? 'text-lg md:text-2xl' : ''
+                    <div className="space-y-0.5 md:space-y-2 relative z-20 flex-1 min-w-0 flex flex-col justify-center">
+                      <CardTitle className={`text-xs md:text-xl font-semibold text-slate-900 transition-all duration-300 leading-tight line-clamp-2 ${
+                        hoveredIndex === idx ? 'text-sm md:text-2xl' : ''
                       }`}>
                         {member.name}
                       </CardTitle>
-                      <CardDescription className={`text-sm md:text-base text-slate-600 transition-all duration-300 ${
+                      <CardDescription className={`text-[0.65rem] md:text-base text-slate-600 transition-all duration-300 leading-tight line-clamp-2 ${
                         hoveredIndex === idx ? 'font-bold' : 'font-medium'
                       }`}>
                         {member.title}
                       </CardDescription>
-                      <p className="text-xs md:text-sm text-slate-500">{member.focus}</p>
+                      <p className="text-[0.6rem] md:text-sm text-slate-500 leading-tight line-clamp-1">{member.focus}</p>
                     </div>
-                    <div className="relative z-20 flex-shrink-0 ml-3 md:ml-4">
+                    <div className="relative z-20 flex-shrink-0 ml-1.5 md:ml-4">
                       <Image
                         src={`/${idx + 1}.jpg`}
                         alt={member.name}
                         width={120}
                         height={120}
-                        className="rounded-full object-cover w-16 h-16 md:w-28 md:h-28 border-2 border-white/50 shadow-lg"
+                        className="rounded-full object-cover w-12 h-12 md:w-28 md:h-28 border-2 border-white/50 shadow-lg"
                       />
                     </div>
                   </Card>
