@@ -6,8 +6,8 @@ import { Linkedin, Instagram, Youtube } from "lucide-react";
 
 export function SiteFooter() {
   return (
-    <footer className="w-full bg-white py-6 md:py-8 mt-12 md:mt-20">
-      <div className="container mx-auto px-4 md:px-6">
+    <footer className="w-full bg-white py-6 md:py-8 mt-12 md:mt-20" style={{ marginLeft: 0, marginRight: 0 }}>
+      <div className="w-full max-w-7xl mx-auto px-4 md:px-6">
         {/* Top Section: Logo/University on left, Social Icons on right */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4 md:gap-0">
           {/* Left: Logo and DSW Text */}

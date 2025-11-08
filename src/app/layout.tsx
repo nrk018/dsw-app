@@ -19,13 +19,14 @@ export const metadata: Metadata = {
   title: "Directorate of Students' Welfare | Manipal University Jaipur",
   description:
     "Department of Student Welfare at Manipal University Jaipur, supporting students with holistic programs, counselling, and leadership.",
+  themeColor: "#e9e5de",
 };
 
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({

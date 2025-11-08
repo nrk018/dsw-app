@@ -123,14 +123,14 @@ export default function Home() {
   const [missionIndex, setMissionIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   
-  // Refs for scroll-based fade in effects
-  const overviewRef = useRef(null);
-  const teamRef = useRef(null);
-  const footerRef = useRef(null);
-  
-  const overviewInView = useInView(overviewRef, { once: true, amount: 0.1 });
-  const teamInView = useInView(teamRef, { once: true, amount: 0.1 });
-  const footerInView = useInView(footerRef, { once: true, amount: 0.1 });
+    // Refs for scroll-based fade in effects
+    const overviewRef = useRef(null);
+    const teamRef = useRef(null);
+    const footerRef = useRef(null);
+    
+    const overviewInView = useInView(overviewRef, { once: true, amount: 0.1 });
+    const teamInView = useInView(teamRef, { once: true, amount: 0.1 });
+    const footerInView = useInView(footerRef, { once: true, amount: 0.1 });
 
   // Scroll to top on page load/reload
   useEffect(() => {
@@ -407,13 +407,16 @@ export default function Home() {
 
       {/* Platinum Clubs Strip */}
       <section 
-        className="w-screen py-4 relative z-50"
+        className="w-screen py-4 relative"
         style={{
           backgroundColor: "#d3622d",
           marginLeft: 'calc(50% - 50vw)',
           marginRight: 'calc(50% - 50vw)',
           maxWidth: '100vw',
+          marginTop: 0,
+          marginBottom: 0,
           position: 'relative',
+          zIndex: 10,
         }}
       >
         <div className="w-full px-6 lg:px-12 overflow-x-hidden">
@@ -434,34 +437,29 @@ export default function Home() {
         </div>
       </section>
 
-      <div 
-        className={`relative overflow-x-hidden text-slate-900 transition-opacity duration-1000 ${
+      {/* Overview Section - Moved outside container to fix z-index stacking context */}
+      <section 
+        ref={overviewRef}
+        id="overview" 
+        className={`w-screen relative transition-opacity duration-1000 ${
           heroAnimationComplete ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
-        style={{ backgroundColor: "#e9e5de" }}
+        style={{
+          marginLeft: 'calc(50% - 50vw)',
+          marginRight: 'calc(50% - 50vw)',
+          maxWidth: '100vw',
+          marginTop: 0,
+          marginBottom: 0,
+          paddingTop: 0,
+          paddingBottom: 0,
+          position: 'relative',
+          zIndex: 1,
+          backgroundColor: "#e9e5de",
+        }}
       >
-        <div className="pointer-events-none absolute -top-36 right-[-120px] h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(99,112,150,0.35),_transparent_65%)] blur-3xl" />
-        <div className="pointer-events-none absolute bottom-[-220px] left-[-160px] h-[460px] w-[460px] rounded-full bg-[radial-gradient(circle_at_center,_rgba(164,174,205,0.28),_transparent_70%)] blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_20%_15%,rgba(255,255,255,0.68),rgba(255,255,255,0))]" />
-
-        <section 
-          ref={overviewRef}
-          id="overview" 
-          className="w-screen relative z-10"
-          style={{
-            marginLeft: 'calc(50% - 50vw)',
-            marginRight: 'calc(50% - 50vw)',
-            maxWidth: '100vw',
-            marginTop: 0,
-            marginBottom: 0,
-            paddingTop: 0,
-            paddingBottom: 0,
-            position: 'relative',
-          }}
-        >
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={overviewInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+            initial={{ opacity: 0 }}
+            animate={overviewInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
           <Card className="w-full border-white/60 bg-white/70 pt-6 md:pt-10 px-4 md:px-10 pb-0 shadow-[0_18px_40px_rgba(46,54,92,0.12)] backdrop-blur-2xl relative" style={{ marginTop: 0, marginBottom: 0 }}>
@@ -494,22 +492,25 @@ export default function Home() {
             </CardContent>
           </Card>
           </motion.div>
-        </section>
+      </section>
 
-        {/* Vision/Mission/Values Carousel Section */}
-        <section 
-          className="w-screen pt-4 pb-0 relative"
-          style={{
-            backgroundColor: "#d3622d",
-            marginLeft: 'calc(50% - 50vw)',
-            marginRight: 'calc(50% - 50vw)',
-            maxWidth: '100vw',
-            marginTop: 0,
-            height: '180px',
-            overflow: 'hidden',
-            marginBottom: 0,
-          }}
-        >
+      {/* Vision/Mission/Values Carousel Section - Moved outside container to fix z-index stacking context */}
+      <section 
+        className={`w-screen pt-4 pb-0 relative transition-opacity duration-1000 ${
+          heroAnimationComplete ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        style={{
+          backgroundColor: "#d3622d",
+          marginLeft: 'calc(50% - 50vw)',
+          marginRight: 'calc(50% - 50vw)',
+          maxWidth: '100vw',
+          marginTop: 0,
+          height: '180px',
+          overflow: 'hidden',
+          marginBottom: 0,
+          zIndex: 2,
+        }}
+      >
           <div className="w-full px-6 lg:px-12 h-full">
             <div className="grid grid-cols-1 md:grid-cols-[200px_80px_auto_1fr] gap-4 md:gap-6 h-full items-center">
               {/* Left: Heading */}
@@ -605,16 +606,22 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+      </section>
 
+      {/* Teams Section - Moved outside container to fix z-index stacking context */}
+      <section 
+        ref={teamRef}
+        id="team" 
+        className={`mt-8 lg:mt-12 transition-opacity duration-1000 ${
+          heroAnimationComplete ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        style={{
+          position: 'relative',
+          zIndex: 3,
+          backgroundColor: "#e9e5de",
+        }}
+      >
         <div className="relative z-10 flex w-full flex-col px-6 pb-0 pt-0 lg:px-12">
-        {/* Navbar is global via layout */}
-
-        <section 
-          ref={teamRef}
-          id="team" 
-          className="mt-8 lg:mt-12"
-        >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -697,19 +704,30 @@ export default function Home() {
               ))}
             </div>
           </motion.div>
-        </section>
+        </div>
+      </section>
 
-        <div ref={footerRef}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={footerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            <SiteFooter />
-          </motion.div>
-        </div>
-        </div>
-    </div>
+      {/* Footer Section - Moved outside container to fix z-index stacking context */}
+      <div 
+        ref={footerRef}
+        className={`w-full transition-opacity duration-1000 ${
+          heroAnimationComplete ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        style={{
+          position: 'relative',
+          zIndex: 4,
+          backgroundColor: "#e9e5de",
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={footerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+          className="w-full"
+        >
+          <SiteFooter />
+        </motion.div>
+      </div>
     </>
   );
 }
